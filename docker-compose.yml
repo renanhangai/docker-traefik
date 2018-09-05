@@ -1,0 +1,9 @@
+version: "3"
+services:
+  reverse-proxy:
+    image: traefik
+    container_name: reverse-proxy
+    network_mode: "host"
+    volumes:
+      - ./etc/traefik:/etc/traefik
+      - /var/run/docker.sock:/var/run/docker.sock
