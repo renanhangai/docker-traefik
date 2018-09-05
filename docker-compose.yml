@@ -8,3 +8,18 @@ services:
     volumes:
       - ./etc/traefik:/etc/traefik
       - /var/run/docker.sock:/var/run/docker.sock
+
+  monitor:
+    image: google/cadvisor
+    container_name: monitor
+    restart: always
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:monitor.localhost"
