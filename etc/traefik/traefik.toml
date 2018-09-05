@@ -8,3 +8,5 @@
 		address = ":80"
 	[entryPoints.traefik]
 		address = ":8080"
+	[entryPoints.mysql]
+		address = ":3306"
