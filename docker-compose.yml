@@ -3,11 +3,13 @@ services:
   reverse-proxy:
     image: traefik
     container_name: reverse-proxy
-    network_mode: "host"
     restart: always
     volumes:
       - ./etc/traefik:/etc/traefik
       - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+      - 8080:8080
 
   monitor:
     image: google/cadvisor
@@ -23,3 +25,8 @@ services:
       - "traefik.enable=true"
       - "traefik.port=8080"
       - "traefik.frontend.rule=Host:monitor.localhost"
+
+networks:
+  default:
+    external: 
+      name: 'traefik'
